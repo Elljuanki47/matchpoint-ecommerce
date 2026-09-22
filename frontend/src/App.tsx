@@ -1,120 +1,93 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+const productTypes = [
+  'Todos',
+  'Camisetas',
+  'Shorts',
+  'Medias',
+  'Botines',
+] as const
+
+type ProductType = (typeof productTypes)[number]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedType, setSelectedType] = useState<ProductType>('Todos')
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+      <header className="site-header">
+        <a className="brand" href="#inicio" aria-label="MATCHPOINT, inicio">
+          MATCH<span>POINT</span>
+        </a>
+
+        <nav aria-label="Navegacion principal">
+          <a href="#catalogo">Futbol</a>
+        </nav>
+      </header>
+
+      <main id="inicio">
+        <section className="hero" aria-labelledby="hero-title">
+          <p className="eyebrow">MATCHPOINT / FUTBOL</p>
+
+          <h1 id="hero-title">
+            Tu equipo.
+            <br />
+            Tu proxima jugada.
+          </h1>
+
+          <p className="hero-descrtiption">
+            Camisetas, shorts, medias y botines para vivir el futbol dentro y fuera de la cancha.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+
+          <a className="primary-link" href="#catalogo">
+            Explorar catalogo <span aria-hidden="true">↗</span>
+          </a>
+        </section>
+
+        <section 
+          id="catalogo"
+          className="catalog"
+          aria-labelledby="catalog-title"
         >
-          Count is {count}
-        </button>
-      </section>
+          <div className="catalog-heading">
+            <div>
+              <p className="eyebrow">ENCONTRA LO TUYO</p>
+              <h2 id="catalog-title">Futbol</h2>
+            </div>
+          </div>
 
-      <div className="ticks"></div>
+          <div className="filters" role="group" aria-label="Tipo de Producto">
+            {productTypes.map((productType) => (
+              <button
+                key={productType}
+                type="button"
+                className="filter-button"
+                aria-pressed={selectedType === productType}
+                onClick={() => setSelectedType(productType)}
+              >
+                {productType}
+              </button>
+            ))}
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="empty-state" role="status">
+            <h3>
+              {selectedType === 'Todos'
+                ? 'Estamos preparando el catalogo'
+                : `${selectedType}: proximamente`}
+            </h3>
+            <p>
+              Todavia no hay productos disponibles para mostrar.
+            </p>
+          </div>
+        </section>
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <footer className="site-footer">
+        <span>MATCHPOINT</span>
+        <span>El deporte nos encuentra.</span>
+      </footer>
     </>
   )
 }
