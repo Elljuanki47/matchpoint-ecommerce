@@ -13,9 +13,15 @@ const priceFormatter = new Intl.NumberFormat('es-AR', {
 export function ProductCard({ product }: ProductCardProps) {
     return (
         <article className="product-card">
-            <div className="product-card-placeholder">
-                <span>{product.type}</span>
-                <small>Imagen proximamente</small>
+            <div className="product-card-media">
+                <img
+                    className="product-card-image"
+                    src={product.imageUrl}
+                    alt={product.name}
+                    loading="lazy"
+                    width={600}
+                    height={450}
+                />
             </div>
 
             <div className="product-card-content">

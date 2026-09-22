@@ -7,4 +7,5 @@ export type Product = {
     type: ProductType
     segment: 'Adulto' | 'Infantil'
     priceFrom: number
+    imageUrl: string
 }

@@ -8,6 +8,7 @@ export const products: Product [] = [
     type: 'Camisetas',
     segment: 'Adulto',
     priceFrom: 120000,
+    imageUrl: '/images/products/camiseta-messi.webp',
   },
   {
     id: 'demo-short-boca',
@@ -16,6 +17,7 @@ export const products: Product [] = [
     type: 'Shorts',
     segment: 'Adulto',
     priceFrom: 65000,
+    imageUrl: '/images/products/short-boca.webp',
   },
   {
     id: 'demo-medias-boca',
@@ -24,6 +26,7 @@ export const products: Product [] = [
     type: 'Medias',
     segment: 'Adulto',
     priceFrom: 25000,
+    imageUrl: '/images/products/medias-boca.webp',
   },
   {
     id: 'demo-botin',
@@ -32,5 +35,6 @@ export const products: Product [] = [
     type: 'Botines',
     segment: 'Adulto',
     priceFrom: 150000,
+    imageUrl: '/images/products/botines.jpg',
   },
 ]
