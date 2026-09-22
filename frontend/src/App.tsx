@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ProductCard } from './components/ProductCard'
+import { products } from './data/products'
 import './App.css'
 
 const productTypes = [
@@ -13,6 +15,9 @@ type ProductType = (typeof productTypes)[number]
 
 function App() {
   const [selectedType, setSelectedType] = useState<ProductType>('Todos')
+  const filteredProducts = products.filter((product) => {
+    return selectedType === 'Todos' || product.type === selectedType
+  });
 
   return (
     <>
@@ -36,7 +41,7 @@ function App() {
             Tu proxima jugada.
           </h1>
 
-          <p className="hero-descrtiption">
+          <p className="hero-description">
             Camisetas, shorts, medias y botines para vivir el futbol dentro y fuera de la cancha.
           </p>
 
@@ -71,16 +76,27 @@ function App() {
             ))}
           </div>
 
-          <div className="empty-state" role="status">
-            <h3>
-              {selectedType === 'Todos'
-                ? 'Estamos preparando el catalogo'
-                : `${selectedType}: proximamente`}
-            </h3>
-            <p>
-              Todavia no hay productos disponibles para mostrar.
+            <p className="catalog-notice">
+              Catálogo de demostración · Productos y precios de ejemplo.
             </p>
-          </div>
+
+            <p className="catalog-count" role="status">
+              {filteredProducts.length}{' '}
+              {filteredProducts.length === 1 ? 'producto' : 'productos'}
+            </p>
+
+            {filteredProducts.length > 0 ? (
+              <div className="product-grid">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <h3>No encontramos productos</h3>
+                <p>Probá seleccionar otro tipo de producto.</p>
+              </div>
+            )}
         </section>
       </main>
 

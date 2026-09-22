@@ -4,7 +4,7 @@
   background: #f6f7f4;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialised;
+  -webkit-font-smoothing: antialiased;
 
   --accent: #c7f56b;
   --muted: #59635b;
