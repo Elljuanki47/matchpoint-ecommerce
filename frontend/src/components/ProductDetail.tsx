@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { getLowestPrice } from '../utils/product'
-import type { Product } from '../types/product'
+import type { Product, ProductVariant } from '../types/product'
+import type { CartItem } from '../types/cart'
 
 type ProductDetailProps = {
     product: Product
     onBack: () => void
+    onAddToCart: (product: Product, variant: ProductVariant) => void
+    cartItems: CartItem[]
 }
 
 const priceFormatter = new Intl.NumberFormat('es-AR', {
@@ -13,7 +16,7 @@ const priceFormatter = new Intl.NumberFormat('es-AR', {
     maximumFractionDigits: 0,
 })
 
-export function ProductDetail({product, onBack}: ProductDetailProps) {
+export function ProductDetail({product, onBack, onAddToCart, cartItems,}: ProductDetailProps) {
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
         null,
     )
@@ -23,6 +26,16 @@ export function ProductDetail({product, onBack}: ProductDetailProps) {
     )
 
     const lowestPrice = getLowestPrice(product)
+
+    const quantityInCart = selectedVariant
+        ? cartItems.find((item) => item.variant.id === selectedVariant.id)
+            ?.quantity ?? 0
+
+        : 0
+    
+    const canAddToCart =
+        selectedVariant !== undefined &&
+        quantityInCart < selectedVariant.stock
 
     return (
         <div className="product-detail">
@@ -84,6 +97,30 @@ export function ProductDetail({product, onBack}: ProductDetailProps) {
                         {selectedVariant
                             ? `Talle ${selectedVariant.size} seleccionado · Stock de prueba: ${selectedVariant.stock}`
                             : 'Selecciona un talle disponible para ver su precio'
+                        }
+                    </p>
+
+                    <button
+                        type="button"
+                        className="add-to-cart-button"
+                        disabled={!canAddToCart}
+                        onClick={() => {
+                            if (selectedVariant && canAddToCart) {
+                                onAddToCart(product, selectedVariant)
+                            }
+                        }}
+                    >
+                        {!selectedVariant
+                            ? 'Elegi un talle'
+                            : canAddToCart
+                                ? 'Agregar al carrito'
+                                : 'Alcanzaste el stock disponible'}
+                    </button>
+
+                    <p className="variant-status" role="status">
+                        {selectedVariant
+                            ? `En tu carrito: ${quantityInCart} de este talle.`
+                            : 'Selecciona un talle para agregarlo'
                         }
                     </p>
                 </div>

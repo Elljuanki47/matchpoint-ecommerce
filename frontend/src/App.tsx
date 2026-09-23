@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { ProductCard } from './components/ProductCard'
 import { products } from './data/products'
 import { ProductDetail } from './components/ProductDetail'
+import type { Product, ProductVariant } from './types/product'
+import type { CartItem } from './types/cart'
+import { Cart } from './components/Cart'
 import './App.css'
 
 const productTypes = [
@@ -26,6 +29,36 @@ function App() {
   const selectedProduct = products.find(
     (product) => product.id === selectedProductId,
   )
+
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+
+  function addToCart(product: Product, variant: ProductVariant) {
+    setCartItems((currentItems) => {
+      const existingItem = currentItems.find(
+        (item) => item.variant.id === variant.id,
+      )
+
+      if ((existingItem?.quantity ?? 0) >= variant.stock) {
+        return currentItems
+      }
+
+      if (existingItem) {
+        return currentItems.map((item) =>
+          item.variant.id === variant.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+        )
+      }
+
+      return[...currentItems, {product,variant,quantity: 1}]
+    })
+  }
+
+  function removeFromCart(variantId: string) {
+    setCartItems((currentItems) =>
+      currentItems.filter((item) => item.variant.id !== variantId),
+    )
+  }
 
   return (
     <>
@@ -101,6 +134,8 @@ function App() {
                 key={selectedProduct.id}
                 product={selectedProduct}
                 onBack={() => setSelectedProductId(null)}
+                onAddToCart={addToCart}
+                cartItems={cartItems}
               />
             ) : filteredProducts.length > 0 ? (
               <div className="product.grid">
@@ -118,6 +153,8 @@ function App() {
                 <p>Proba seleccionar otro tipo de producto.</p>
               </div>
             )}
+
+            <Cart items={cartItems} onRemove={removeFromCart} />
         </section>
       </main>
 
