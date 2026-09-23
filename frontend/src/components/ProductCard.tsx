@@ -1,7 +1,9 @@
 import type { Product } from '../types/product'
+import { getLowestPrice } from '../utils/product'
 
 type ProductCardProps = {
     product: Product
+    onViewDetail: () => void
 }
 
 const priceFormatter = new Intl.NumberFormat('es-AR', {
@@ -10,7 +12,8 @@ const priceFormatter = new Intl.NumberFormat('es-AR', {
     maximumFractionDigits: 0,
 })
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, onViewDetail }: ProductCardProps) {
+    const lowestPrice = getLowestPrice(product)
     return (
         <article className="product-card">
             <div className="product-card-media">
@@ -29,8 +32,18 @@ export function ProductCard({ product }: ProductCardProps) {
                 <h3>{product.name}</h3>
                 <p className="product-card-segement">{product.segment}</p>
                 <p className="Product-card-price">
-                    Desde {priceFormatter.format(product.priceFrom)}
+                    {lowestPrice !== null
+                        ? `Desde ${priceFormatter.format(lowestPrice)}`
+                        : 'Sin variantes disponibles'}
                 </p>
+                <button
+                    type="button"
+                    className="detail-button"
+                    onClick={onViewDetail}
+                    aria-label={`Ver detalle de ${product.name}`}
+                >
+                    Ver producto
+                </button>
             </div>
         </article>
     )

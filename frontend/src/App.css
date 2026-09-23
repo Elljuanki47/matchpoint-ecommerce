@@ -221,6 +221,126 @@
   font-weight: 700;
 }
 
+.detail-button,
+.back-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: #172019;
+  background: #ffffff;
+  font-weight: 700;
+}
+
+.detail-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.detail-button:hover,
+.back-button:hover {
+  background: #e9eee5;
+}
+
+.product-detail {
+  margin-top: 24px;
+}
+
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 40px;
+  margin-top: 24px;
+}
+
+.product-detail-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  padding: 24px;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.product-detail-info h3 {
+  margin-block: 12px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.3;
+}
+
+.product-detail-description {
+  margin-top: 20px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.product-detail-price {
+  margin-top: 24px;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.size-selector {
+  min-width: 0;
+  margin: 28px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.size-selector legend {
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.size-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 68px;
+  min-height: 60px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: #172019;
+  background: #ffffff;
+}
+
+.size-option[aria-pressed='true'] {
+  border-color: #172019;
+  background: var(--accent);
+}
+
+.size-option:disabled {
+  color: #687168;
+  background: #eceee9;
+  cursor: not-allowed;
+}
+
+.variant-status {
+  margin-top: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .product-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
 @media (max-width: 960px) {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

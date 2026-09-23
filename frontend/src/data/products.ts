@@ -7,8 +7,14 @@ export const products: Product [] = [
     brand: 'Adidas',
     type: 'Camisetas',
     segment: 'Adulto',
-    priceFrom: 120000,
     imageUrl: '/images/products/camiseta-messi.webp',
+    description:
+      'Camiseta de demostración con nombre y número estampados. Modelo adulto.',
+    variants: [
+      { id: 'demo-camiseta-s', size: 'S', price: 120000, stock: 3 },
+      { id: 'demo-camiseta-m', size: 'M', price: 120000, stock: 5 },
+      { id: 'demo-camiseta-l', size: 'L', price: 125000, stock: 0 },
+],
   },
   {
     id: 'demo-short-boca',
@@ -16,8 +22,14 @@ export const products: Product [] = [
     brand: 'Adidas',
     type: 'Shorts',
     segment: 'Adulto',
-    priceFrom: 65000,
     imageUrl: '/images/products/short-boca.webp',
+    description:
+      'Short de demostración para completar tu equipo. Modelo adulto.',
+    variants: [
+      { id: 'demo-short-s', size: 'S', price: 65000, stock: 4 },
+      { id: 'demo-short-m', size: 'M', price: 65000, stock: 2 },
+      { id: 'demo-short-l', size: 'L', price: 65000, stock: 0 },
+],
   },
   {
     id: 'demo-medias-boca',
@@ -25,8 +37,13 @@ export const products: Product [] = [
     brand: 'Adidas',
     type: 'Medias',
     segment: 'Adulto',
-    priceFrom: 25000,
     imageUrl: '/images/products/medias-boca.webp',
+    description:
+      'Medias de demostración con talles expresados como rangos de calzado.',
+    variants: [
+      { id: 'demo-medias-3942', size: '39–42', price: 25000, stock: 6 },
+      { id: 'demo-medias-4346', size: '43–46', price: 25000, stock: 3 },
+    ],
   },
   {
     id: 'demo-botin',
@@ -34,7 +51,13 @@ export const products: Product [] = [
     brand: 'Nike',
     type: 'Botines',
     segment: 'Adulto',
-    priceFrom: 150000,
     imageUrl: '/images/products/botines.jpg',
+    description:
+      'Botines de demostración. Numeración ilustrativa para probar el selector.',
+    variants: [
+      { id: 'demo-botin-40', size: '40', price: 150000, stock: 2 },
+      { id: 'demo-botin-41', size: '41', price: 155000, stock: 4 },
+      { id: 'demo-botin-42', size: '42', price: 155000, stock: 0 },
+],
   },
 ]

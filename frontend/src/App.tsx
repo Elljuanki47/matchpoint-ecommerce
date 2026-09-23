@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ProductCard } from './components/ProductCard'
 import { products } from './data/products'
+import { ProductDetail } from './components/ProductDetail'
 import './App.css'
 
 const productTypes = [
@@ -18,6 +19,13 @@ function App() {
   const filteredProducts = products.filter((product) => {
     return selectedType === 'Todos' || product.type === selectedType
   });
+  const [selectedProductId, setSelectedProductId] = useState<string | null> (
+    null,
+  )
+
+  const selectedProduct = products.find(
+    (product) => product.id === selectedProductId,
+  )
 
   return (
     <>
@@ -69,7 +77,10 @@ function App() {
                 type="button"
                 className="filter-button"
                 aria-pressed={selectedType === productType}
-                onClick={() => setSelectedType(productType)}
+                onClick={() => {
+                  setSelectedType(productType)
+                  setSelectedProductId(null)
+                }}
               >
                 {productType}
               </button>
@@ -85,16 +96,26 @@ function App() {
               {filteredProducts.length === 1 ? 'producto' : 'productos'}
             </p>
 
-            {filteredProducts.length > 0 ? (
-              <div className="product-grid">
+            {selectedProduct ? (
+              <ProductDetail
+                key={selectedProduct.id}
+                product={selectedProduct}
+                onBack={() => setSelectedProductId(null)}
+              />
+            ) : filteredProducts.length > 0 ? (
+              <div className="product.grid">
                 {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onViewDetail={() => setSelectedProductId(product.id)}
+                  />
                 ))}
               </div>
             ) : (
               <div className="empty-state">
                 <h3>No encontramos productos</h3>
-                <p>Probá seleccionar otro tipo de producto.</p>
+                <p>Proba seleccionar otro tipo de producto.</p>
               </div>
             )}
         </section>

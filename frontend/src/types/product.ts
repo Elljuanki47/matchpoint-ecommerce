@@ -6,6 +6,15 @@ export type Product = {
     brand: string
     type: ProductType
     segment: 'Adulto' | 'Infantil'
-    priceFrom: number
     imageUrl: string
+    description: string
+    variants: ProductVariant[]
+}
+
+export type ProductVariant = {
+    id: string
+    size: string
+    sizeAr?: string
+    price: number
+    stock: number
 }
